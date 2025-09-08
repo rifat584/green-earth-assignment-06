@@ -4,24 +4,169 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Green Earth Assignment 06</title>
-    <link rel="stylesheet" href=".style.css" />
     <link
       rel="shortcut icon"
       href="./assets/hero-leaf1.png"
       type="image/x-icon"
     />
+
+    <!-- Daisy UI + Tailwind -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./style.css" />
   </head>
-  <body>
+
+  <body class="max-w-[120rem] mx-auto">
     <header>
-      <nav></nav>
+      <nav>
+        <div class="navbar bg-[#15803d] px-24 py-3">
+          <div class="navbar-start">
+            <div class="dropdown">
+              <div
+                tabindex="0"
+                role="button"
+                class="btn btn-ghost btn-square lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-white h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabindex="0"
+                class="menu menu-lg dropdown-content bg-white rounded-box z-1 mt-3 w-52 p-2 shadow"
+              >
+                <li><a href="#">About</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Plant a Tree</a></li>
+              </ul>
+            </div>
+            <a class="text-xl font-semibold text-white ml-2">Green Earth</a>
+          </div>
+          <div class="navbar-center hidden lg:flex text-white">
+            <ul class="menu menu-horizontal px-1">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Gallery</a></li>
+              <li><a href="#">Plant a Tree</a></li>
+            </ul>
+          </div>
+          <div class="navbar-end">
+            <a
+              class="btn btn-primary bg-[#facc15] text-[#15803d] rounded-full border-none shadow-none"
+              >Plant a Tree</a
+            >
+          </div>
+        </div>
+      </nav>
+      <div class="hero bg-[#cff0dc] flex justify-between">
+        <div>
+          <img src="./assets/hero-leaf1.png" alt="leaf-1" />
+        </div>
+        <div class="text-center space-y-2">
+          <h1 class="text-4xl font-bold">Plant a Tree, Grow a Future</h1>
+          <p class="text-[#1f2937]">
+            Join our mission to plant 1 million trees and make the Earth greener
+            for future generations.
+          </p>
+          <a
+            class="btn btn-primary bg-[#facc15] text-[#15803d] rounded-full border-none shadow-none mt-2 hover:shadow-md"
+            >Get Involved
+          </a>
+        </div>
+        <div>
+          <img src="./assets/hero-leaf2.png" alt="leaf-2" />
+        </div>
+      </div>
     </header>
 
-    <section>
-      <aside></aside>
+    <section class="bg-[#f0fdf4]">
+      <h2 class="text-3xl font-bold text-center py-12">Choose Your Trees</h2>
 
-      <main></main>
+      <div class="w-11/12 mx-auto flex gap-8">
+        <aside class="flex-[1]">
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Categories</h3>
+            <ol
+              id="categories"
+              class="space-y-3 font-medium flex flex-col justify-start text-left"
+            >
+              <li
+                id="all-plants"
+                class="category-item btn w-full justify-start! btn-ghost border-none hover:bg-[#cff0dc] hover:text-base transition-all duration-100 shadow-none"
+              >
+                All Plants
+              </li>
+            </ol>
+          </div>
+        </aside>
 
-      <aside></aside>
+        <main id="main" class="flex-[4]">
+          <div id="all-tree-container" class="grid grid-cols-3 gap-6"></div>
+
+          <dialog id="tree_modal" class="modal modal-bottom sm:modal-middle">
+            <div id="modal-content" class="modal-box"></div>
+          </dialog>
+        </main>
+
+        <aside id="your-cart" class="flex-[1]">
+          <div class="bg-white rounded-xl p-4 min-h-screen">
+            <h2 class="text-xl font-semibold mb-4">Your Cart</h2>
+
+            <div
+              class="flex items-center justify-between p-4 bg-[#f0fdf4] mb-4"
+            >
+              <div>
+                <h4>Mango Tree</h4>
+                <p class="text-[#1f2937]">৳500 &times; 1</p>
+              </div>
+              <div
+                class="text-[#1f2937] hover:bg-red-500 rounded-[100%] p-1 flex items-center justify-center hover:text-white"
+              >
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+            </div>
+
+            <div
+              class="flex justify-between items-center border-t-1 border-[#ededed] pt-1"
+            >
+              <h4 class="font-semibold">Total:</h4>
+              <h4 class="font-semibold">৳500</h4>
+            </div>
+          </div>
+        </aside>
+      </div>
     </section>
 
     <footer></footer>

@@ -1,0 +1,11 @@
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.active{
+  background-color: #15803d;
+  color: white;
+  border-radius: 4px;
+  transition-duration: 100ms;
+}
