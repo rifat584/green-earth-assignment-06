@@ -110,7 +110,7 @@ const showCategories = (dataArr) => {
     dynamicCategory.setAttribute("id", `btn-${category.id}`);
     dynamicCategory.setAttribute(
       "class",
-      "category-item btn w-full justify-start! btn-ghost border-none hover:bg-[#cff0dc] hover:text-base transition-all duration-100 shadow-none"
+      "category-item btn lg:w-full lg:justify-start! btn-ghost border-none hover:bg-[#cff0dc] hover:text-base transition-all duration-100 shadow-none"
     );
     categories.appendChild(dynamicCategory);
     dynamicCategory.addEventListener("click", () => {
