@@ -1,4 +1,18 @@
 
+// Loading
+const spinnerActivate = (status)=>{
+  const spinner = document.getElementById('loading')
+  // const spinner2 = document.getElementById('loading2')
+  if (status){
+    spinner.classList.remove("hidden");
+    document.getElementById('all-tree-container').classList.add("hidden")
+  } else{
+    spinner.classList.add("hidden");
+    document.getElementById('all-tree-container').classList.remove("hidden")
+  }
+}
+
+
 // get Modal Content
 const getPlantsInfo = (id) => {
   fetch(`https://openapi.programming-hero.com/api/plant/${id}`)
@@ -27,12 +41,13 @@ const showModalContent = (data) => {
     </div>
 
   `;
-  child.setAttribute("class", "space-y-2")
+  child.setAttribute("class", "space-y-2");
   parent.appendChild(child);
   document.getElementById("tree_modal").showModal();
 };
 // Get All Plants
 const getAllPlants = () => {
+  spinnerActivate(true)
   const allPlantURL = "https://openapi.programming-hero.com/api/plants";
   fetch(allPlantURL)
     .then((response) => response.json())
@@ -82,6 +97,7 @@ const showAllPlants = (plants) => {
     );
     treeContainer.appendChild(plantCard);
   });
+  spinnerActivate(false)
 };
 
 // Show Categories
@@ -100,19 +116,18 @@ const showCategories = (dataArr) => {
     dynamicCategory.addEventListener("click", () => {
       showCategoryPlant(category.id);
     });
-    // test(category.id)
   });
+  showActive();
 };
 
 // Get Categories
 const getCategories = () => {
+  // spinnerActivate(false)
   const categoryURL = "https://openapi.programming-hero.com/api/categories";
   fetch(categoryURL)
-    .then((response) => response.json())
-    .then((responseData) => showCategories(responseData.categories));
+  .then((response) => response.json())
+  .then((responseData) => showCategories(responseData.categories));
 };
-
-// Active Button
 
 // Show Plants by Category
 const showCategoryPlant = (id) => {
@@ -120,6 +135,7 @@ const showCategoryPlant = (id) => {
   fetch(plantCatURL)
     .then((response) => response.json())
     .then((categoryData) => showAllPlants(categoryData.plants));
+    // spinnerActivate(false)
 };
 
 // All Plants
@@ -133,46 +149,54 @@ allPlants.addEventListener("click", () => {
 getCategories();
 getAllPlants();
 
-let total = []
-let deduce = []
-let finaldeduce= 0;
-const atcCount = (name, price)=>{
-  console.log(name, price)
-  total.push(price)
-  const cart= document.getElementById('cart');
-  console.log(cart)
-  const atcCard= document.createElement('div');
-  atcCard.innerHTML=`
+let total = [];
+const atcCount = (name, price) => {
+  total.push(price);
+  // Add Item & Amount in Cart
+  const cart = document.getElementById("cart");
+  const atcCard = document.createElement("div");
+  atcCard.innerHTML = `
   <div>
                 <h4>${name}</h4>
                 <p class="text-[#1f2937]">৳<span id="plant-amount">${price}</span> &times; 1</p>
               </div>
-              <div
-                class="text-[#1f2937] hover:bg-red-500 rounded-[100%] p-1 flex items-center justify-center hover:text-white"
-              >
-                <i class="fa-solid fa-xmark"></i>
+              <div>
+                <i class="fa-solid fa-xmark fa-xl" style="color:red;"></i>
               </div>
-  `
-  atcCard.setAttribute('class', 'flex items-center justify-between p-4 bg-[#f0fdf4] mb-4')
-  cart.appendChild(atcCard)
-  atcCard.addEventListener('click', e=>{
+  `;
+  atcCard.setAttribute(
+    "class",
+    "flex items-center justify-between p-4 bg-[#f0fdf4] mb-4 carts"
+  );
+  cart.appendChild(atcCard);
+  // Total After Adding Items to Cart
+  const totalAdd = total.reduce((acc, curr) => acc + curr, 0);
+  document.getElementById("t-amount").innerText = totalAdd;
+};
 
+// Remove Cart
+  const carts = document.getElementById('cart')
+  carts.addEventListener('click', (e)=>{
     if(e.target.classList.contains('fa-xmark')){
-      const plantAmount= document.getElementById("plant-amount").innerText
-      const plantAmountNumber = parseInt(plantAmount)
-      deduce.push(plantAmountNumber)
-      const totalReduced = deduce.reduce((acc,curr)=>acc+curr,0)
-      finaldeduce = totalReduced
-      e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
-      document.getElementById('t-amount').innerText=finalAmount
+      const pNode = e.target.parentNode.parentNode.parentNode
+      pNode.removeChild(e.target.parentNode.parentNode)
     }
-    
   })
-  
-  
-  const totalAdd= total.reduce((acc,curr)=>acc+curr,0)
-  const finalAmount = totalAdd- finaldeduce
-  console.log(totalAdd, finaldeduce)
-  document.getElementById('t-amount').innerText=finalAmount
-  
-}
+
+
+// Active Button
+const showActive = () => {
+  const allCategories = document.getElementsByClassName("category-item");
+  const allCategoriesArray = Array.from(allCategories);
+
+  allCategoriesArray.forEach((element) => {
+    element.addEventListener("click", (e) => {
+      for (const category of allCategories) {
+        category.classList.remove("active");
+      }
+      e.target.classList.add("active");
+    });
+  });
+};
+
+

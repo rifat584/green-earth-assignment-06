@@ -112,10 +112,11 @@
     </header>
 
     <h2 class="text-3xl font-bold text-center py-12">Choose Your Trees</h2>
-    
+
     <div class="w-11/12 mx-auto flex gap-8 pt-8">
+      <!-- Category Aside -->
     <aside class="flex-[1]">
-      <div>
+      <div id="category-section">
             <h3 class="text-xl font-semibold mb-4">Categories</h3>
             <ol
               id="categories"
@@ -132,14 +133,16 @@
         </aside>
 
         <main id="main" class="flex-[4]">
+          <div id="loading" class="flex justify-center py-8 hidden"><span class="loading loading-dots loading-xl"></span></div>
+          <!-- All Tree Container -->
           <div id="all-tree-container" class="grid grid-cols-3 gap-6">
 
           </div>
-
+          <!-- Modal -->
           <dialog id="tree_modal" class="modal modal-bottom sm:modal-middle">
             <div id="modal-content" class="modal-box"></div>
           </dialog>
-
+          <!-- About Campaign -->
           <div class="about-campaign mt-25">
             <h2 class="text-center text-3xl font-bold my-12">
               About the Campaign
@@ -165,7 +168,7 @@
             </div>
           </div>
         </main>
-
+        <!-- Cart -->
         <aside class="flex-[1]">
           <div class="bg-white rounded-xl p-4 h-[100vh]">
             <h2 class="text-xl font-semibold mb-4">Your Cart</h2>
@@ -179,7 +182,7 @@
           </div>
         </aside>
       </div>
-
+      <!-- Our Impact -->
       <div class="our-impact mt-30 bg-[#cff0dc] w-full">
             <h2 class="text-3xl font-bold text-center pt-16 mb-8">Our Impact</h2>
               <div class="flex gap-8 pb-25 mx-auto justify-between w-11/12">
@@ -197,7 +200,7 @@
                 </div>
               </div>
           </div>
-
+          <!-- Footer -->
     <footer class="w-full bg-[#166534] pt-8">
       <div >
         <h2 class="text-center text-white text-2xl font-bold mb-8">Plant a Tree Today</h2>
