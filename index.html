@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
 
-  <body class="max-w-[120rem] mx-auto">
+  <body class="max-w-[120rem] mx-auto bg-[#f0fdf4]">
     <header>
       <nav>
         <div class="navbar bg-[#15803d] px-24 py-3">
@@ -111,12 +111,11 @@
       </div>
     </header>
 
-    <section class="bg-[#f0fdf4]">
-      <h2 class="text-3xl font-bold text-center py-12">Choose Your Trees</h2>
-
-      <div class="w-11/12 mx-auto flex gap-8">
-        <aside class="flex-[1]">
-          <div>
+    <h2 class="text-3xl font-bold text-center py-12">Choose Your Trees</h2>
+    
+    <div class="w-11/12 mx-auto flex gap-8 pt-8">
+    <aside class="flex-[1]">
+      <div>
             <h3 class="text-xl font-semibold mb-4">Categories</h3>
             <ol
               id="categories"
@@ -133,43 +132,92 @@
         </aside>
 
         <main id="main" class="flex-[4]">
-          <div id="all-tree-container" class="grid grid-cols-3 gap-6"></div>
+          <div id="all-tree-container" class="grid grid-cols-3 gap-6">
+
+          </div>
 
           <dialog id="tree_modal" class="modal modal-bottom sm:modal-middle">
             <div id="modal-content" class="modal-box"></div>
           </dialog>
-        </main>
 
-        <aside id="your-cart" class="flex-[1]">
-          <div class="bg-white rounded-xl p-4 min-h-screen">
-            <h2 class="text-xl font-semibold mb-4">Your Cart</h2>
-
-            <div
-              class="flex items-center justify-between p-4 bg-[#f0fdf4] mb-4"
-            >
-              <div>
-                <h4>Mango Tree</h4>
-                <p class="text-[#1f2937]">৳500 &times; 1</p>
+          <div class="about-campaign mt-25">
+            <h2 class="text-center text-3xl font-bold my-12">
+              About the Campaign
+            </h2>
+            <div class="flex gap-8 justify-between items-center">
+              <div class="flex-[1]">
+                <img src="./assets/about.png" alt="" />
               </div>
-              <div
-                class="text-[#1f2937] hover:bg-red-500 rounded-[100%] p-1 flex items-center justify-center hover:text-white"
-              >
-                <i class="fa-solid fa-xmark"></i>
+              <div class="flex-[1] text-[#1f2937]">
+                <p class="mb-4">
+                  Green Earth is a global tree plantation initiative dedicated
+                  to fighting climate change. Since our start, we’ve planted
+                  over 500,000 trees worldwide. By joining our campaign, you
+                  help restore forests, create habitats for wildlife, and combat
+                  global warming.
+                </p>
+                <ul class="list-disc list-inside">
+                  <li>Restoration of natural habitats</li>
+                  <li>Improvement of air quality</li>
+                  <li>Support for local communities</li>
+                </ul>
               </div>
             </div>
+          </div>
+        </main>
 
+        <aside class="flex-[1]">
+          <div class="bg-white rounded-xl p-4 h-[100vh]">
+            <h2 class="text-xl font-semibold mb-4">Your Cart</h2>
+            <div id="cart"></div>
             <div
               class="flex justify-between items-center border-t-1 border-[#ededed] pt-1"
             >
               <h4 class="font-semibold">Total:</h4>
-              <h4 class="font-semibold">৳500</h4>
+              <h4 class="font-semibold">৳<span id="t-amount"></span></h4>
             </div>
           </div>
         </aside>
       </div>
-    </section>
 
-    <footer></footer>
+      <div class="our-impact mt-30 bg-[#cff0dc] w-full">
+            <h2 class="text-3xl font-bold text-center pt-16 mb-8">Our Impact</h2>
+              <div class="flex gap-8 pb-25 mx-auto justify-between w-11/12">
+                <div class="flex items-center flex-col bg-white flex-1 py-10 rounded-xl shadow">
+                  <h2 class="text-4xl text-[#15803d] font-bold">500k+</h2>
+                  <p class="text-center">Trees Planted</p>
+                </div>
+                <div class="flex items-center flex-col justify-center bg-white flex-1 py-10 rounded-xl shadow">
+                  <h2 class="text-4xl text-[#15803d] font-bold">120+</h2>
+                  <p class="text-center">Communities Involved</p>
+                </div>
+                <div class="flex items-center flex-col justify-center bg-white flex-1 py-10 rounded-xl shadow">
+                  <h2 class="text-4xl text-[#15803d] font-bold">30+</h2>
+                  <p class="text-center">Countries Reached</p>
+                </div>
+              </div>
+          </div>
+
+    <footer class="w-full bg-[#166534] pt-8">
+      <div >
+        <h2 class="text-center text-white text-2xl font-bold mb-8">Plant a Tree Today</h2>
+      <div class="flex flex-col items-center justify-center bg-[#15803d] shadow rounded-lg mx-auto p-4 w-1/4">
+        <input type="text" placeholder="Your Name" class="input w-full">
+        <input type="email" placeholder="Your Email Address" class="input w-full mt-2">
+            <select class="select w-full mt-2">
+              <option disabled selected>Number of Trees</option>
+              <option>1 Tree - $5</option>
+              <option>5 Trees - $25</option>
+              <option>10 Trees - $50</option>
+            </select>
+          <button type="submit" class="btn btn-primary border none text-black bg-[#facc15] border-none w-full rounded-full mt-3">Donate Now</button>
+      </div>
+      </div>
+
+      <div class="bg-[#14532d] py-2 text-center text-white mt-8">
+        <p class="text-xs font-extralight">© 2025 Green Earth. All Rights Reserved.</p>
+      </div>
+    </footer>
 
     <script src="./scripts.js"></script>
   </body>

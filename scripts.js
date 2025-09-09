@@ -1,3 +1,4 @@
+
 // get Modal Content
 const getPlantsInfo = (id) => {
   fetch(`https://openapi.programming-hero.com/api/plant/${id}`)
@@ -35,7 +36,9 @@ const getAllPlants = () => {
   const allPlantURL = "https://openapi.programming-hero.com/api/plants";
   fetch(allPlantURL)
     .then((response) => response.json())
-    .then((plantsData) => showAllPlants(plantsData.plants));
+    .then((plantsData) => {
+      showAllPlants(plantsData.plants);
+    });
 };
 // Show All Plants
 const showAllPlants = (plants) => {
@@ -60,7 +63,9 @@ const showAllPlants = (plants) => {
                 <h3 class="text-lg font-medium">৳ ${plant.price}</h3>
               </div>
               <button
-                class="btn btn-primary btn-block bg-[#15803d] text-white border-none rounded-full mt-4"
+                class="btn btn-primary btn-block bg-[#15803d] text-white border-none rounded-full mt-4 hover:bg-[#facc15] hover:text-base transition-all duration-100 atc-btn"
+                
+                onclick="atcCount('${plant.name}',${plant.price})"
               >
                 Add to Cart
               </button>
@@ -123,5 +128,51 @@ allPlants.addEventListener("click", () => {
   getAllPlants();
 });
 
+// ATC
+
 getCategories();
 getAllPlants();
+
+let total = []
+let deduce = []
+let finaldeduce= 0;
+const atcCount = (name, price)=>{
+  console.log(name, price)
+  total.push(price)
+  const cart= document.getElementById('cart');
+  console.log(cart)
+  const atcCard= document.createElement('div');
+  atcCard.innerHTML=`
+  <div>
+                <h4>${name}</h4>
+                <p class="text-[#1f2937]">৳<span id="plant-amount">${price}</span> &times; 1</p>
+              </div>
+              <div
+                class="text-[#1f2937] hover:bg-red-500 rounded-[100%] p-1 flex items-center justify-center hover:text-white"
+              >
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+  `
+  atcCard.setAttribute('class', 'flex items-center justify-between p-4 bg-[#f0fdf4] mb-4')
+  cart.appendChild(atcCard)
+  atcCard.addEventListener('click', e=>{
+
+    if(e.target.classList.contains('fa-xmark')){
+      const plantAmount= document.getElementById("plant-amount").innerText
+      const plantAmountNumber = parseInt(plantAmount)
+      deduce.push(plantAmountNumber)
+      const totalReduced = deduce.reduce((acc,curr)=>acc+curr,0)
+      finaldeduce = totalReduced
+      e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+      document.getElementById('t-amount').innerText=finalAmount
+    }
+    
+  })
+  
+  
+  const totalAdd= total.reduce((acc,curr)=>acc+curr,0)
+  const finalAmount = totalAdd- finaldeduce
+  console.log(totalAdd, finaldeduce)
+  document.getElementById('t-amount').innerText=finalAmount
+  
+}
