@@ -151,7 +151,6 @@ let total = 0;
 let priceReduced = 0;
 const atcCount = (name, price) => {
   total = total + price;
-
   // Add Item & Amount in Cart
   const cart = document.getElementById("cart");
   const atcCard = document.createElement("div");
@@ -183,11 +182,11 @@ const cartRemove = (price) => {
     }
   });
 
-  const finalPrice = total - priceReduced;
-  if (finalPrice === 0) {
+  if (priceReduced === total) {
     total = 0;
+    priceReduced = 0;
   }
-  document.getElementById("t-amount").innerText = finalPrice;
+  document.getElementById("t-amount").innerText = total - priceReduced;
 };
 
 // Active Button
