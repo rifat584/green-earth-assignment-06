@@ -1,17 +1,15 @@
-
 // Loading
-const spinnerActivate = (status)=>{
-  const spinner = document.getElementById('loading')
+const spinnerActivate = (status) => {
+  const spinner = document.getElementById("loading");
   // const spinner2 = document.getElementById('loading2')
-  if (status){
+  if (status) {
     spinner.classList.remove("hidden");
-    document.getElementById('all-tree-container').classList.add("hidden")
-  } else{
+    document.getElementById("all-tree-container").classList.add("hidden");
+  } else {
     spinner.classList.add("hidden");
-    document.getElementById('all-tree-container').classList.remove("hidden")
+    document.getElementById("all-tree-container").classList.remove("hidden");
   }
-}
-
+};
 
 // get Modal Content
 const getPlantsInfo = (id) => {
@@ -47,7 +45,7 @@ const showModalContent = (data) => {
 };
 // Get All Plants
 const getAllPlants = () => {
-  spinnerActivate(true)
+  spinnerActivate(true);
   const allPlantURL = "https://openapi.programming-hero.com/api/plants";
   fetch(allPlantURL)
     .then((response) => response.json())
@@ -97,7 +95,7 @@ const showAllPlants = (plants) => {
     );
     treeContainer.appendChild(plantCard);
   });
-  spinnerActivate(false)
+  spinnerActivate(false);
 };
 
 // Show Categories
@@ -125,8 +123,8 @@ const getCategories = () => {
   // spinnerActivate(false)
   const categoryURL = "https://openapi.programming-hero.com/api/categories";
   fetch(categoryURL)
-  .then((response) => response.json())
-  .then((responseData) => showCategories(responseData.categories));
+    .then((response) => response.json())
+    .then((responseData) => showCategories(responseData.categories));
 };
 
 // Show Plants by Category
@@ -135,7 +133,7 @@ const showCategoryPlant = (id) => {
   fetch(plantCatURL)
     .then((response) => response.json())
     .then((categoryData) => showAllPlants(categoryData.plants));
-    // spinnerActivate(false)
+  // spinnerActivate(false)
 };
 
 // All Plants
@@ -150,6 +148,7 @@ getCategories();
 getAllPlants();
 
 let total = [];
+let priceReduced = 0;
 const atcCount = (name, price) => {
   total.push(price);
   // Add Item & Amount in Cart
@@ -160,7 +159,7 @@ const atcCount = (name, price) => {
                 <h4>${name}</h4>
                 <p class="text-[#1f2937]">৳<span id="plant-amount">${price}</span> &times; 1</p>
               </div>
-              <div>
+              <div onclick="cartRemove(${price})" class="hover:text-lg">
                 <i class="fa-solid fa-xmark fa-xl" style="color:red;"></i>
               </div>
   `;
@@ -170,19 +169,28 @@ const atcCount = (name, price) => {
   );
   cart.appendChild(atcCard);
   // Total After Adding Items to Cart
-  const totalAdd = total.reduce((acc, curr) => acc + curr, 0);
-  document.getElementById("t-amount").innerText = totalAdd;
+  const valueAdded = totalAdd(total);
+  document.getElementById("t-amount").innerText = valueAdded;
 };
 
-// Remove Cart
-  const carts = document.getElementById('cart')
-  carts.addEventListener('click', (e)=>{
-    if(e.target.classList.contains('fa-xmark')){
-      const pNode = e.target.parentNode.parentNode.parentNode
-      pNode.removeChild(e.target.parentNode.parentNode)
-    }
-  })
+const totalAdd = (price) => {
+  return price.reduce((acc, curr) => acc + curr, 0);
+};
 
+// Remove Cart & Set Total Value
+const cartRemove = (price) => {
+  const carts = document.getElementById("cart");
+  carts.addEventListener("click", (e) => {
+    if (e.target.classList.contains("fa-xmark")) {
+      const removeParent = e.target.closest(".carts");
+      removeParent.remove();
+    }
+  });
+  priceReduced = price + priceReduced;
+  const added = totalAdd(total);
+  const finalPrice = added - priceReduced;
+  document.getElementById("t-amount").innerText = finalPrice;
+};
 
 // Active Button
 const showActive = () => {
@@ -198,5 +206,3 @@ const showActive = () => {
     });
   });
 };
-
-
