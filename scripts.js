@@ -147,10 +147,11 @@ allPlants.addEventListener("click", () => {
 getCategories();
 getAllPlants();
 
-let total = [];
+let total = 0;
 let priceReduced = 0;
 const atcCount = (name, price) => {
-  total.push(price);
+  total = total + price;
+
   // Add Item & Amount in Cart
   const cart = document.getElementById("cart");
   const atcCard = document.createElement("div");
@@ -168,17 +169,12 @@ const atcCount = (name, price) => {
     "flex items-center justify-between p-4 bg-[#f0fdf4] mb-4 carts"
   );
   cart.appendChild(atcCard);
-  // Total After Adding Items to Cart
-  const valueAdded = totalAdd(total);
-  document.getElementById("t-amount").innerText = valueAdded;
-};
-
-const totalAdd = (price) => {
-  return price.reduce((acc, curr) => acc + curr, 0);
+  document.getElementById("t-amount").innerText = total;
 };
 
 // Remove Cart & Set Total Value
 const cartRemove = (price) => {
+  priceReduced = price + priceReduced;
   const carts = document.getElementById("cart");
   carts.addEventListener("click", (e) => {
     if (e.target.classList.contains("fa-xmark")) {
@@ -186,9 +182,11 @@ const cartRemove = (price) => {
       removeParent.remove();
     }
   });
-  priceReduced = price + priceReduced;
-  const added = totalAdd(total);
-  const finalPrice = added - priceReduced;
+
+  const finalPrice = total - priceReduced;
+  if (finalPrice === 0) {
+    total = 0;
+  }
   document.getElementById("t-amount").innerText = finalPrice;
 };
 
